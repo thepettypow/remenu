@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Menu — Food Card &amp; Details</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="screen" id="screen">
+
+  <div class="page-header">
+    <span class="page-title">Starters</span>
+  </div>
+
+  <div class="card-list">
+
+    <!-- CARD 1: Available, multi-portion -->
+    <article class="food-card" data-dish="margherita" tabindex="0" role="button" aria-label="Margherita Pizza, from $14.00, tap for details">
+      <div class="card-photo">
+        <div class="photo-fallback" aria-hidden="true">🍕</div>
+        <div class="badge-row">
+          <span class="badge badge-veg" title="Vegetarian">🥬</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Margherita Pizza</h3>
+        <p class="card-desc">San Marzano tomato, fresh mozzarella, basil, EVOO</p>
+        <div class="card-footer">
+          <span class="card-price"><span class="price-from">From</span> $14.00</span>
+          <span class="card-chevron" aria-hidden="true">›</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- CARD 2: Sold out -->
+    <article class="food-card is-sold-out" data-dish="diavola" aria-label="Diavola Pizza, currently unavailable">
+      <div class="card-photo">
+        <div class="photo-fallback" aria-hidden="true">🍕</div>
+        <span class="soldout-pill">SOLD OUT</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Diavola Pizza</h3>
+        <p class="card-desc">Spicy salami, chili honey, mozzarella</p>
+        <div class="card-footer">
+          <span class="card-price muted">Currently unavailable</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- CARD 3: single portion, 4+ badges (edge cases showcase) -->
+    <article class="food-card" data-dish="garden" tabindex="0" role="button" aria-label="Garden Bowl, $12.50, tap for details">
+      <div class="card-photo">
+        <div class="photo-fallback" aria-hidden="true">🥗</div>
+        <div class="badge-row">
+          <span class="badge badge-veg" title="Vegetarian">🥬</span>
+          <span class="badge badge-gf" title="Gluten-Free">🌾</span>
+          <span class="badge-overflow" title="+2 more">+2</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Garden Harvest Bowl With Roasted Seasonal Vegetables</h3>
+        <p class="card-desc">Quinoa, roasted vegetables, tahini dressing, toasted seeds</p>
+        <div class="card-footer">
+          <span class="card-price">$12.50</span>
+          <span class="card-chevron" aria-hidden="true">›</span>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</div>
+
+<!-- Scrim -->
+<div class="sheet-scrim" id="sheetScrim"></div>
+
+<!-- BOTTOM SHEET: Food Details View -->
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+  <div class="sheet-drag" aria-hidden="true"></div>
+  <button class="sheet-close" id="sheetClose" aria-label="Close details">✕</button>
+
+  <div class="sheet-scroll">
+    <div class="sheet-photo">
+      <div class="photo-fallback" aria-hidden="true">🍕</div>
+    </div>
+
+    <div class="sheet-content">
+      <h1 class="sheet-title" id="sheetTitle">Margherita Pizza</h1>
+
+      <div class="tag-row">
+        <span class="tag tag-veg">🥬 Vegetarian</span>
+        <span class="tag tag-allergen">Contains: Gluten</span>
+        <span class="tag tag-allergen">Contains: Dairy</span>
+      </div>
+
+      <div class="prep-time">⏱️ 12–15 mins</div>
+
+      <p class="sheet-desc">A classic Neapolitan-style pizza with a slow-fermented dough, San Marzano tomato sauce, fresh mozzarella di bufala, hand-torn basil, and a finish of extra virgin olive oil. Baked at high heat for a lightly charred crust.</p>
+
+      <hr class="divider">
+
+      <!-- Portion toggle -->
+      <section class="section">
+        <div class="portion-toggle" role="tablist" aria-label="Portion size">
+          <button class="portion-seg is-active" role="tab" aria-selected="true" data-portion="0">
+            <span class="portion-label">Regular</span><span class="portion-price">$14.00</span>
+          </button>
+          <button class="portion-seg" role="tab" aria-selected="false" data-portion="1">
+            <span class="portion-label">Large</span><span class="portion-price">$19.00</span>
+          </button>
+        </div>
+      </section>
+
+      <hr class="divider">
+
+      <!-- Ingredients -->
+      <section class="section">
+        <h2 class="section-label">Ingredients</h2>
+        <div class="chip-row">
+          <span class="chip">San Marzano tomatoes</span>
+          <span class="chip">Fresh mozzarella</span>
+          <span class="chip">Basil</span>
+          <span class="chip">Extra virgin olive oil</span>
+          <span class="chip">Sea salt</span>
+        </div>
+      </section>
+
+      <hr class="divider">
+
+      <!-- Nutrition -->
+      <section class="section nutrition">
+        <h2 class="section-label">Nutrition Facts — per <span id="servingSize">280</span>g serving</h2>
+
+        <div class="calories-row">
+          <span class="calories-value" id="calValue">580</span>
+          <span class="calories-unit">kcal</span>
+        </div>
+
+        <div class="macro-row">
+          <div class="macro">
+            <span class="macro-value" id="macroProtein">24g</span>
+            <span class="macro-label">Protein</span>
+          </div>
+          <div class="macro">
+            <span class="macro-value" id="macroCarbs">68g</span>
+            <span class="macro-label">Total Carbs</span>
+          </div>
+          <div class="macro">
+            <span class="macro-value" id="macroFat">21g</span>
+            <span class="macro-label">Total Fat</span>
+          </div>
+        </div>
+
+        <button class="disclosure-toggle" id="microToggle" aria-expanded="false" aria-controls="microDetails">
+          <span>Show more nutrition details</span>
+          <span class="disclosure-chevron">⌄</span>
+        </button>
+
+        <div class="micro-details" id="microDetails">
+          <div class="micro-row">
+            <span class="micro-label">Dietary Fiber</span>
+            <span class="micro-value" id="microFiber">3g</span>
+          </div>
+          <div class="micro-row">
+            <span class="micro-label">Sugars</span>
+            <span class="micro-value" id="microSugars">6g</span>
+          </div>
+          <div class="micro-row">
+            <span class="micro-label">Sodium</span>
+            <span class="micro-value" id="microSodium">890mg</span>
+          </div>
+        </div>
+      </section>
+
+      <div class="sheet-bottom-pad"></div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
